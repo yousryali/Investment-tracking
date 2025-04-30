@@ -57,20 +57,20 @@ cash_usd = st.session_state.data['cash_usd']
 cash_egp = st.session_state.data['cash_egp']
 
 # Currency conversion function
+# Currency conversion function
 def to_display_currency(usd=0.0, egp=0.0):
     # Ensure usd is a valid float
     try:
-        usd = float(usd) if usd is not None else 0.0
+        usd = float(usd) if usd is not None and usd != '' else 0.0
     except ValueError as e:
         print(f"Error converting USD: {e}")
         usd = 0.0
 
     # Ensure egp is a valid float; check if it's None, empty, or invalid value
     try:
-        print(f"Attempting to convert EGP: {egp}")  # Debugging line
-        egp = float(egp) if egp not in [None, '', 'None'] else 0.0
+        egp = float(egp) if egp is not None and egp != '' else 0.0
     except ValueError as e:
-        print(f"Error converting EGP: {e}")  # Debugging line
+        print(f"Error converting EGP: {e}")
         egp = 0.0
 
     # If exchange_rate is not defined, fallback to 1.0
@@ -82,6 +82,7 @@ def to_display_currency(usd=0.0, egp=0.0):
         return usd + (egp / exchange_rate if exchange_rate else 0.0)
     else:
         return egp + (usd * exchange_rate if exchange_rate else 0.0)
+
 
 
 # Total portfolio value
