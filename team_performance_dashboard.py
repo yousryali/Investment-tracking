@@ -57,7 +57,6 @@ cash_usd = st.session_state.data['cash_usd']
 cash_egp = st.session_state.data['cash_egp']
 
 # Currency conversion function
-# Currency conversion function
 def to_display_currency(usd=0.0, egp=0.0):
     # Ensure usd is a valid float
     try:
@@ -84,8 +83,6 @@ def to_display_currency(usd=0.0, egp=0.0):
         return egp + (usd * exchange_rate if exchange_rate else 0.0)
 
 
-
-# Total portfolio value
 total_portfolio_value = to_display_currency(
     usd=savings_usd_total + etf_total_usd + cash_usd,
     egp=savings_egp_total + gold_total_egp + real_estate_total + cash_egp
@@ -143,8 +140,8 @@ with tabs[3]:
     st.subheader("🏠 Real Estate")
     if st.checkbox("Add Property Share"):
         name = st.text_input("Property Name")
-        paid_amount = st.number_input("Paid Installment to Date (EGP)", step=1000.0)
-        estimated_value = st.number_input("Estimated Current Value (EGP)", step=1000.0)
+        paid_amount = st.number_input("Paid Installment to Date (EGP)", step=1000.0, value=0.0)
+        estimated_value = st.number_input("Estimated Current Value (EGP)", step=1000.0, value=0.0)
         st.session_state.data['real_estate'].append({
             "name": name,
             "paid_amount": paid_amount,
