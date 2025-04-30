@@ -57,13 +57,13 @@ cash_usd = st.session_state.data['cash_usd']
 cash_egp = st.session_state.data['cash_egp']
 
 # Currency conversion function
-def to_display_currency(usd=0, egp=0):
-    usd = usd or 0
-    egp = egp or 0
+def to_display_currency(usd=None, egp=None):
+    usd = float(usd) if usd is not None else 0.0
+    egp = float(egp) if egp is not None else 0.0
     if currency_display == "USD":
-        return usd + (egp / exchange_rate if exchange_rate else 0)
+        return usd + (egp / exchange_rate if exchange_rate else 0.0)
     else:
-        return egp + (usd * exchange_rate if exchange_rate else 0)
+        return egp + (usd * exchange_rate if exchange_rate else 0.0)
 
 total_portfolio_value = to_display_currency(
     usd=savings_usd_total + etf_total_usd + cash_usd,
