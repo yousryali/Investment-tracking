@@ -84,8 +84,7 @@ def to_display_currency(usd=0.0, egp=0.0):
         return egp + (usd * exchange_rate if exchange_rate else 0.0)
 
 
-
-
+# Total portfolio value
 total_portfolio_value = to_display_currency(
     usd=savings_usd_total + etf_total_usd + cash_usd,
     egp=savings_egp_total + gold_total_egp + real_estate_total + cash_egp
