@@ -58,17 +58,25 @@ cash_egp = st.session_state.data['cash_egp']
 
 # Currency conversion function
 def to_display_currency(usd=0.0, egp=0.0):
+    # Ensure the values are valid numbers (float), otherwise fallback to 0.0
     try:
         usd = float(usd) if usd is not None else 0.0
         egp = float(egp) if egp is not None else 0.0
-    except (TypeError, ValueError):
+    except Exception as e:
+        print(f"Error during currency conversion: {e}")
         usd = 0.0
         egp = 0.0
 
+    # If exchange_rate is not defined, fallback to 1.0
+    if not exchange_rate:
+        exchange_rate = 1.0
+
+    # Logic to display currency based on user preference
     if currency_display == "USD":
         return usd + (egp / exchange_rate if exchange_rate else 0.0)
     else:
         return egp + (usd * exchange_rate if exchange_rate else 0.0)
+
 
 
 total_portfolio_value = to_display_currency(
