@@ -58,6 +58,8 @@ cash_egp = st.session_state.data['cash_egp']
 
 # Currency conversion function
 def to_display_currency(usd=0, egp=0):
+    usd = usd or 0
+    egp = egp or 0
     if currency_display == "USD":
         return usd + (egp / exchange_rate if exchange_rate else 0)
     else:
