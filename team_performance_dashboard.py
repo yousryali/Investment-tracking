@@ -59,13 +59,19 @@ cash_egp = st.session_state.data['cash_egp']
 # Currency conversion function
 def to_display_currency(usd=0.0, egp=0.0):
     # Ensure usd is a valid float
-    usd = float(usd) if usd is not None else 0.0
+    try:
+        usd = float(usd) if usd is not None else 0.0
+    except ValueError as e:
+        print(f"Error converting USD: {e}")
+        usd = 0.0
 
     # Ensure egp is a valid float; check if it's None, empty, or invalid value
     try:
+        print(f"Attempting to convert EGP: {egp}")  # Debugging line
         egp = float(egp) if egp not in [None, '', 'None'] else 0.0
-    except ValueError:
-        egp = 0.0  # Fallback to 0.0 if conversion fails
+    except ValueError as e:
+        print(f"Error converting EGP: {e}")  # Debugging line
+        egp = 0.0
 
     # If exchange_rate is not defined, fallback to 1.0
     if not exchange_rate:
